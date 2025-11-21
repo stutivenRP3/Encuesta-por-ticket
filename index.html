@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Encuesta: Califica la gestión de soporte</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="card" aria-labelledby="enc-title">
+    <h1 id="enc-title">Encuesta rápida</h1>
+    <p class="lead">
+      Por favor califique la gestión del soporte brindado (seleccione de 1 a 5 estrellas).
+    </p>
+
+    <form id="survey" aria-describedby="desc">
+      <div id="desc" class="sr-only">
+        Una pregunta: ¿Cómo califica la gestión del soporte?
+        1 estrella = Muy mala, 5 estrellas = Excelente
+      </div>
+
+      <!-- NUEVOS CAMPOS DE TEXTO -->
+      <div class="field">
+        <label for="titulo">Título:</label>
+        <input type="text" id="titulo" name="titulo" placeholder="Ej: Soporte en sistema contable">
+      </div>
+
+      <div class="field">
+        <label for="codigo">Código:</label>
+        <input type="text" id="codigo" name="codigo" placeholder="Ej: INC-12345">
+      </div>
+
+      <div class="field">
+        <label for="gestionadoPor">Gestionado por:</label>
+        <input type="text" id="gestionadoPor" name="gestionadoPor" placeholder="Ej: Juan Pérez">
+      </div>
+      <!-- FIN NUEVOS CAMPOS -->
+
+      <fieldset style="border:0;padding:0;margin:0">
+        <legend class="sr-only">Califique la gestión del soporte</legend>
+
+        <div class="rating" role="radiogroup" aria-label="Calificación de soporte">
+          <!-- radios invisibles (1..5) -->
+          <input type="radio" name="rating" id="r1" value="1" />
+          <input type="radio" name="rating" id="r2" value="2" />
+          <input type="radio" name="rating" id="r3" value="3" />
+          <input type="radio" name="rating" id="r4" value="4" />
+          <input type="radio" name="rating" id="r5" value="5" />
+
+          <!-- estrellas -->
+          <label for="r1" class="star" title="1 estrella" aria-label="1 estrella">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path class="shape"
+                d="M12 .587l3.668 7.431 8.2 1.192-5.934 5.787 1.402 8.174L12 18.896l-7.336 3.877 1.402-8.174L.132 9.21l8.2-1.192z"/>
+            </svg>
+          </label>
+          <label for="r2" class="star" title="2 estrellas" aria-label="2 estrellas">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path class="shape"
+                d="M12 .587l3.668 7.431 8.2 1.192-5.934 5.787 1.402 8.174L12 18.896l-7.336 3.877 1.402-8.174L.132 9.21l8.2-1.192z"/>
+            </svg>
+          </label>
+          <label for="r3" class="star" title="3 estrellas" aria-label="3 estrellas">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path class="shape"
+                d="M12 .587l3.668 7.431 8.2 1.192-5.934 5.787 1.402 8.174L12 18.896l-7.336 3.877 1.402-8.174L.132 9.21l8.2-1.192z"/>
+            </svg>
+          </label>
+          <label for="r4" class="star" title="4 estrellas" aria-label="4 estrellas">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path class="shape"
+                d="M12 .587l3.668 7.431 8.2 1.192-5.934 5.787 1.402 8.174L12 18.896l-7.336 3.877 1.402-8.174L.132 9.21l8.2-1.192z"/>
+            </svg>
+          </label>
+          <label for="r5" class="star" title="5 estrellas" aria-label="5 estrellas">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path class="shape"
+                d="M12 .587l3.668 7.431 8.2 1.192-5.934 5.787 1.402 8.174L12 18.896l-7.336 3.877 1.402-8.174L.132 9.21l8.2-1.192z"/>
+            </svg>
+          </label>
+        </div>
+      </fieldset>
+
+      <div class="controls">
+        <button type="submit">Enviar</button>
+        <button type="button" id="resetBtn">Limpiar</button>
+        <div id="feedback" class="result" role="status" aria-live="polite"></div>
+      </div>
+    </form>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

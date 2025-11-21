@@ -1,0 +1,163 @@
+:root{
+  --star-size: 48px;
+  --star-gap: 8px;
+  --accent:#ffb400; /* estrella llena */
+  --muted:#d8d8d8;  /* estrella vacía */
+  --bg:#fafafa;
+  --card:#ffffff;
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+}
+
+html,body{
+  height:100%;
+}
+
+body{
+  margin:0;
+  background:linear-gradient(180deg,var(--bg),#fff);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:24px;
+  color:#111;
+}
+
+.card{
+  background:var(--card);
+  border-radius:12px;
+  box-shadow:0 6px 24px rgba(22,30,45,0.08);
+  padding:20px 24px;
+  width:min(760px,100%);
+  max-width:720px;
+}
+
+h1{
+  font-size:18px;
+  margin:0 0 6px;
+}
+
+p.lead{
+  margin:0 0 16px;
+  color:#444;
+}
+
+form{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+
+/* sistema de estrellas */
+.rating{
+  display:flex;
+  gap:var(--star-gap);
+  align-items:center;
+}
+
+.rating input[type="radio"]{
+  position:absolute;
+  opacity:0;
+  pointer-events:none;
+}
+
+.star{
+  width:var(--star-size);
+  height:var(--star-size);
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  font-size:var(--star-size);
+  cursor:pointer;
+  user-select:none;
+  transition:transform .12s ease;
+  line-height:1;
+}
+
+.star svg{
+  width:100%;
+  height:100%;
+  display:block;
+}
+
+/* estado vacío */
+.star .shape{
+  fill:var(--muted);
+  transition:fill .12s ease;
+}
+
+/* checked styles: pinta la seleccionada y las de la izquierda */
+input#r5:checked ~ label[for="r1"] .shape,
+input#r5:checked ~ label[for="r2"] .shape,
+input#r5:checked ~ label[for="r3"] .shape,
+input#r5:checked ~ label[for="r4"] .shape,
+input#r5:checked ~ label[for="r5"] .shape,
+
+input#r4:checked ~ label[for="r1"] .shape,
+input#r4:checked ~ label[for="r2"] .shape,
+input#r4:checked ~ label[for="r3"] .shape,
+input#r4:checked ~ label[for="r4"] .shape,
+
+input#r3:checked ~ label[for="r1"] .shape,
+input#r3:checked ~ label[for="r2"] .shape,
+input#r3:checked ~ label[for="r3"] .shape,
+
+input#r2:checked ~ label[for="r1"] .shape,
+input#r2:checked ~ label[for="r2"] .shape,
+
+input#r1:checked ~ label[for="r1"] .shape{
+  fill:var(--accent);
+}
+
+/* pequeño rebote al hacer click */
+input[type="radio"]:checked + label{
+  transform:translateY(-4px) scale(1.02);
+}
+
+/* leyenda oculta pero accesible */
+.sr-only{
+  position:absolute;
+  width:1px;
+  height:1px;
+  padding:0;
+  margin:-1px;
+  overflow:hidden;
+  clip:rect(0,0,0,0);
+  white-space:nowrap;
+  border:0;
+}
+
+.controls{
+  display:flex;
+  gap:12px;
+  align-items:center;
+}
+
+button{
+  padding:10px 14px;
+  border-radius:8px;
+  border:0;
+  cursor:pointer;
+  font-weight:600;
+}
+
+button[type="submit"]{
+  background:#0b76ef;
+  color:#fff;
+}
+
+button[type="button"]{
+  background:#f0f2f5;
+  color:#111;
+}
+
+.result{
+  margin-top:8px;
+  color:#0b76ef;
+  font-weight:600;
+}
+
+@media (max-width:420px){
+  :root{
+    --star-size:40px;
+  }
+}
