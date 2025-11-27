@@ -156,8 +156,47 @@ button[type="button"]{
   font-weight:600;
 }
 
+/* Campos de formulario */
+.field{
+  display:flex;
+  flex-direction:column;
+  gap:4px;
+}
+
+.field label{
+  font-size:14px;
+  font-weight:600;
+  color:#444;
+}
+
+.field input[type="text"]{
+  padding:8px 12px;
+  border:1px solid #d8d8d8;
+  border-radius:6px;
+  font-size:14px;
+  background:#f9f9f9;
+  color:#111;
+  transition:border-color .2s ease;
+  min-width:120px;
+  max-width:100%;
+  width:fit-content;
+}
+
+.field input[type="text"]:focus{
+  outline:none;
+  border-color:#0b76ef;
+}
+
+.field input[readonly]{
+  cursor:default;
+  background:#f5f5f5;
+}
+
 @media (max-width:420px){
   :root{
     --star-size:40px;
+  }
+  .field input[type="text"]{
+    width:100%;
   }
 }
