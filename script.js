@@ -38,6 +38,33 @@
     surveyContainer.style.display = 'none';
   }
 
+  // Función para ajustar el ancho del input al contenido
+  function autoResizeInput(input) {
+    if (!input.value) return;
+
+    // Crear un elemento temporal para medir el texto
+    const tempSpan = document.createElement('span');
+    tempSpan.style.cssText = `
+      position: absolute;
+      visibility: hidden;
+      white-space: pre;
+      font-family: ${getComputedStyle(input).fontFamily};
+      font-size: ${getComputedStyle(input).fontSize};
+      font-weight: ${getComputedStyle(input).fontWeight};
+      letter-spacing: ${getComputedStyle(input).letterSpacing};
+      padding: 0 24px;
+    `;
+    tempSpan.textContent = input.value;
+    document.body.appendChild(tempSpan);
+
+    // Ajustar el ancho (con un mínimo de 120px y máximo del 100% del contenedor)
+    const calculatedWidth = tempSpan.offsetWidth;
+    input.style.width = `${Math.min(Math.max(calculatedWidth, 120), input.parentElement.offsetWidth)}px`;
+
+    // Limpiar
+    document.body.removeChild(tempSpan);
+  }
+
   // Mostrar el formulario de encuesta
   function showSurvey() {
     const loading = document.getElementById('loading');
@@ -50,16 +77,24 @@
     const params = getURLParams();
 
     if (params.titulo) {
-      document.getElementById('titulo').value = params.titulo;
+      const tituloInput = document.getElementById('titulo');
+      tituloInput.value = params.titulo;
+      autoResizeInput(tituloInput);
     }
     if (params.codigo) {
-      document.getElementById('codigo').value = params.codigo;
+      const codigoInput = document.getElementById('codigo');
+      codigoInput.value = params.codigo;
+      autoResizeInput(codigoInput);
     }
     if (params.idEjecutor) {
-      document.getElementById('gestionadoPor').value = params.idEjecutor;
+      const gestionadoInput = document.getElementById('gestionadoPor');
+      gestionadoInput.value = params.idEjecutor;
+      autoResizeInput(gestionadoInput);
     }
     if (params.idSolicitante) {
-      document.getElementById('solicitante').value = params.idSolicitante;
+      const solicitanteInput = document.getElementById('solicitante');
+      solicitanteInput.value = params.idSolicitante;
+      autoResizeInput(solicitanteInput);
     }
   }
 
