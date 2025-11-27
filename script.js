@@ -146,6 +146,7 @@
     const titulo = data.get('titulo');
     const codigo = data.get('codigo');
     const gestionadoPor = data.get('gestionadoPor');
+    const comentario = data.get('comentario');
 
     if(!rating){
       feedback.textContent = 'Por favor selecciona una calificación.';
@@ -171,7 +172,8 @@
           rating: parseInt(rating),
           titulo,
           codigo,
-          gestionadoPor
+          gestionadoPor,
+          comentario
         })
       });
 
@@ -200,14 +202,23 @@
   // Botón Limpiar
   resetBtn.addEventListener('click', function(){
     Array.from(form.elements).forEach(el => {
-      if (el.id !== 'titulo' && el.id !== 'codigo' && el.id !== 'gestionadoPor') {
+      if (el.id !== 'titulo' && el.id !== 'codigo' && el.id !== 'gestionadoPor' && el.id !== 'solicitante') {
         el.disabled = false;
       }
     });
 
-    // Solo resetear la calificación, no los campos pre-llenados
+    // Solo resetear la calificación y comentario, no los campos pre-llenados
     const radios = document.querySelectorAll('input[name="rating"]');
     radios.forEach(radio => radio.checked = false);
+
+    // Limpiar comentario
+    if (comentarioTextarea) {
+      comentarioTextarea.value = '';
+      if (wordCountDisplay) {
+        wordCountDisplay.textContent = '0 / 50 palabras';
+        wordCountDisplay.style.color = '#666';
+      }
+    }
 
     feedback.textContent = '';
     feedback.style.color = '';
@@ -231,6 +242,33 @@
       }
     });
   });
+
+  // Contador de palabras para el comentario
+  const comentarioTextarea = document.getElementById('comentario');
+  const wordCountDisplay = document.getElementById('wordCount');
+
+  if (comentarioTextarea && wordCountDisplay) {
+    comentarioTextarea.addEventListener('input', function() {
+      const text = this.value.trim();
+      const words = text === '' ? [] : text.split(/\s+/);
+      const wordCount = words.length;
+
+      // Actualizar el contador
+      wordCountDisplay.textContent = `${wordCount} / 50 palabras`;
+
+      // Cambiar color si excede el límite
+      if (wordCount > 50) {
+        wordCountDisplay.style.color = '#d23';
+
+        // Truncar al límite de 50 palabras
+        const truncated = words.slice(0, 50).join(' ');
+        this.value = truncated;
+        wordCountDisplay.textContent = '50 / 50 palabras';
+      } else {
+        wordCountDisplay.style.color = '#666';
+      }
+    });
+  }
 
   // Validar token al cargar la página
   validateToken();
