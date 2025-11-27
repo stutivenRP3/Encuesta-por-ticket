@@ -8,12 +8,16 @@
 </head>
 <body>
   <main class="card" aria-labelledby="enc-title">
-    <h1 id="enc-title">Encuesta rápida</h1>
-    <p class="lead">
-      Por favor califique la gestión del soporte brindado (seleccione de 1 a 5 estrellas).
-    </p>
+    <div id="loading" style="text-align: center; padding: 20px;">
+      <p>Validando acceso...</p>
+    </div>
+    <div id="survey-container" style="display: none;">
+      <h1 id="enc-title">Encuesta rápida</h1>
+      <p class="lead">
+        Por favor califique la gestión del soporte brindado (seleccione de 1 a 5 estrellas).
+      </p>
 
-    <form id="survey" aria-describedby="desc">
+    <form id="survey" aria-describedby="desc" method="POST" action="http://localhost:5678/webhook-test/encuesta-por-ticket">
       <div id="desc" class="sr-only">
         Una pregunta: ¿Cómo califica la gestión del soporte?
         1 estrella = Muy mala, 5 estrellas = Excelente
@@ -22,17 +26,22 @@
       <!-- NUEVOS CAMPOS DE TEXTO -->
       <div class="field">
         <label for="titulo">Título:</label>
-        <input type="text" id="titulo" name="titulo" placeholder="Ej: Soporte en sistema contable">
+        <input type="text" id="titulo" name="titulo" placeholder="Ej: Soporte en sistema contable" readonly>
       </div>
 
       <div class="field">
         <label for="codigo">Código:</label>
-        <input type="text" id="codigo" name="codigo" placeholder="Ej: INC-12345">
+        <input type="text" id="codigo" name="codigo" placeholder="Ej: INC-12345" readonly>
       </div>
 
       <div class="field">
         <label for="gestionadoPor">Gestionado por:</label>
-        <input type="text" id="gestionadoPor" name="gestionadoPor" placeholder="Ej: Juan Pérez">
+        <input type="text" id="gestionadoPor" name="gestionadoPor" placeholder="Ej: Juan Pérez" readonly>
+      </div>
+
+      <div class="field">
+        <label for="solicitante">Solicitante:</label>
+        <input type="text" id="solicitante" name="solicitante" placeholder="Solicitante" readonly>
       </div>
       <!-- FIN NUEVOS CAMPOS -->
 
@@ -87,6 +96,7 @@
         <div id="feedback" class="result" role="status" aria-live="polite"></div>
       </div>
     </form>
+    </div>
   </main>
 
   <script src="script.js"></script>
