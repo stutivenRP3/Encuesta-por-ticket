@@ -1,11 +1,21 @@
 :root{
-  --star-size: 48px;
-  --star-gap: 8px;
-  --accent:#ffb400; /* estrella llena */
-  --muted:#d8d8d8;  /* estrella vacía */
-  --bg:#fafafa;
+  --star-size: 56px;
+  --star-gap: 12px;
+  --accent:#fbbf24; /* estrella llena - dorado vibrante */
+  --accent-hover:#f59e0b;
+  --muted:#e5e7eb;  /* estrella vacía */
+  --bg:#f9fafb;
   --card:#ffffff;
-  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  --primary:#3b82f6;
+  --primary-hover:#2563eb;
+  --text-primary:#111827;
+  --text-secondary:#6b7280;
+  --border:#e5e7eb;
+  --success:#10b981;
+  --shadow-sm:0 1px 2px 0 rgba(0,0,0,0.05);
+  --shadow-md:0 4px 6px -1px rgba(0,0,0,0.1);
+  --shadow-lg:0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04);
+  font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", Arial, sans-serif;
 }
 
 html,body{
@@ -14,37 +24,74 @@ html,body{
 
 body{
   margin:0;
-  background:linear-gradient(180deg,var(--bg),#fff);
+  background:linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height:100vh;
   display:flex;
   align-items:center;
   justify-content:center;
-  padding:24px;
-  color:#111;
+  padding:32px 20px;
+  color:var(--text-primary);
+  position:relative;
+}
+
+body::before{
+  content:'';
+  position:absolute;
+  top:0;
+  left:0;
+  right:0;
+  bottom:0;
+  background-image:radial-gradient(circle at 25% 25%, rgba(255,255,255,0.1) 0%, transparent 50%),
+                   radial-gradient(circle at 75% 75%, rgba(255,255,255,0.05) 0%, transparent 50%);
+  pointer-events:none;
 }
 
 .card{
   background:var(--card);
-  border-radius:12px;
-  box-shadow:0 6px 24px rgba(22,30,45,0.08);
-  padding:20px 24px;
-  width:min(760px,100%);
-  max-width:720px;
+  border-radius:20px;
+  box-shadow:var(--shadow-lg);
+  padding:48px 56px;
+  width:min(850px,100%);
+  max-width:850px;
+  position:relative;
+  z-index:1;
+  border:1px solid rgba(255,255,255,0.1);
+}
+
+.card::before{
+  content:'';
+  position:absolute;
+  top:0;
+  left:0;
+  right:0;
+  height:6px;
+  background:linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+  border-radius:20px 20px 0 0;
 }
 
 h1{
-  font-size:18px;
-  margin:0 0 6px;
+  font-size:32px;
+  margin:0 0 12px;
+  font-weight:700;
+  color:var(--text-primary);
+  letter-spacing:-0.5px;
+  background:linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
 }
 
 p.lead{
-  margin:0 0 16px;
-  color:#444;
+  margin:0 0 40px;
+  color:var(--text-secondary);
+  font-size:17px;
+  line-height:1.7;
 }
 
 form{
   display:flex;
   flex-direction:column;
-  gap:12px;
+  gap:24px;
 }
 
 /* sistema de estrellas */
@@ -52,6 +99,18 @@ form{
   display:flex;
   gap:var(--star-gap);
   align-items:center;
+  justify-content:center;
+  padding:32px 0;
+  background:linear-gradient(to bottom, #fafbfc 0%, #ffffff 100%);
+  border-radius:16px;
+  border:2px solid var(--border);
+  margin:8px 0;
+  transition:all 0.3s ease;
+}
+
+.rating:hover{
+  border-color:#d1d5db;
+  box-shadow:var(--shadow-md);
 }
 
 .rating input[type="radio"]{
@@ -69,8 +128,14 @@ form{
   font-size:var(--star-size);
   cursor:pointer;
   user-select:none;
-  transition:transform .12s ease;
+  transition:all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   line-height:1;
+  filter:drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+}
+
+.star:hover{
+  transform:scale(1.15) rotate(-5deg);
+  filter:drop-shadow(0 4px 8px rgba(0,0,0,0.15));
 }
 
 .star svg{
@@ -110,7 +175,13 @@ input#r1:checked ~ label[for="r1"] .shape{
 
 /* pequeño rebote al hacer click */
 input[type="radio"]:checked + label{
-  transform:translateY(-4px) scale(1.02);
+  transform:translateY(-6px) scale(1.1);
+  animation:bounce 0.5s ease;
+}
+
+@keyframes bounce{
+  0%, 100%{transform:translateY(-6px) scale(1.1);}
+  50%{transform:translateY(-10px) scale(1.15);}
 }
 
 /* leyenda oculta pero accesible */
@@ -128,55 +199,106 @@ input[type="radio"]:checked + label{
 
 .controls{
   display:flex;
-  gap:12px;
+  gap:16px;
   align-items:center;
+  flex-wrap:wrap;
+  margin-top:8px;
 }
 
 button{
-  padding:10px 14px;
-  border-radius:8px;
+  padding:14px 32px;
+  border-radius:12px;
   border:0;
   cursor:pointer;
   font-weight:600;
+  font-size:16px;
+  transition:all 0.2s ease;
+  box-shadow:var(--shadow-sm);
 }
 
 button[type="submit"]{
-  background:#0b76ef;
+  background:linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color:#fff;
+  position:relative;
+  overflow:hidden;
+}
+
+button[type="submit"]::before{
+  content:'';
+  position:absolute;
+  top:0;
+  left:-100%;
+  width:100%;
+  height:100%;
+  background:linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition:left 0.5s ease;
+}
+
+button[type="submit"]:hover::before{
+  left:100%;
+}
+
+button[type="submit"]:hover{
+  transform:translateY(-2px);
+  box-shadow:0 10px 20px rgba(102,126,234,0.3);
+}
+
+button[type="submit"]:active{
+  transform:translateY(0);
 }
 
 button[type="button"]{
-  background:#f0f2f5;
-  color:#111;
+  background:#f3f4f6;
+  color:var(--text-secondary);
+  border:1px solid var(--border);
+}
+
+button[type="button"]:hover{
+  background:#e5e7eb;
+  color:var(--text-primary);
 }
 
 .result{
-  margin-top:8px;
-  color:#0b76ef;
+  flex:1;
+  min-width:200px;
+  padding:12px 16px;
+  border-radius:8px;
   font-weight:600;
+  font-size:15px;
 }
 
 /* Campos de formulario */
 .field{
   display:flex;
   flex-direction:column;
-  gap:4px;
+  gap:8px;
 }
 
 .field label{
-  font-size:14px;
+  font-size:15px;
   font-weight:600;
-  color:#444;
+  color:var(--text-primary);
+  display:flex;
+  align-items:center;
+  gap:6px;
+}
+
+.field label::before{
+  content:'';
+  width:4px;
+  height:4px;
+  background:linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius:50%;
 }
 
 .field input[type="text"]{
-  padding:8px 12px;
-  border:1px solid #d8d8d8;
-  border-radius:6px;
-  font-size:14px;
-  background:#f9f9f9;
-  color:#111;
-  transition:border-color .2s ease;
+  padding:12px 16px;
+  border:2px solid var(--border);
+  border-radius:10px;
+  font-size:15px;
+  background:#fafbfc;
+  color:var(--text-primary);
+  transition:all 0.2s ease;
   min-width:120px;
   max-width:100%;
   width:fit-content;
@@ -184,43 +306,100 @@ button[type="button"]{
 
 .field input[type="text"]:focus{
   outline:none;
-  border-color:#0b76ef;
+  border-color:#667eea;
+  background:#fff;
+  box-shadow:0 0 0 3px rgba(102,126,234,0.1);
 }
 
 .field input[readonly]{
   cursor:default;
-  background:#f5f5f5;
+  background:#f9fafb;
+  border-color:#e5e7eb;
+  color:var(--text-secondary);
 }
 
 .field textarea{
-  padding:8px 12px;
-  border:1px solid #d8d8d8;
-  border-radius:6px;
-  font-size:14px;
-  background:#f9f9f9;
-  color:#111;
-  transition:border-color .2s ease;
+  padding:12px 16px;
+  border:2px solid var(--border);
+  border-radius:10px;
+  font-size:15px;
+  background:#fafbfc;
+  color:var(--text-primary);
+  transition:all 0.2s ease;
   resize:vertical;
   font-family:inherit;
   width:100%;
   max-width:100%;
+  line-height:1.6;
 }
 
 .field textarea:focus{
   outline:none;
-  border-color:#0b76ef;
+  border-color:#667eea;
+  background:#fff;
+  box-shadow:0 0 0 3px rgba(102,126,234,0.1);
 }
 
 .field small{
   display:block;
   margin-top:4px;
+  color:var(--text-secondary);
+  font-size:13px;
 }
 
-@media (max-width:420px){
-  :root{
-    --star-size:40px;
+@media (max-width:768px){
+  .card{
+    padding:32px 24px;
+    border-radius:16px;
   }
+
+  h1{
+    font-size:26px;
+  }
+
+  p.lead{
+    font-size:15px;
+    margin-bottom:28px;
+  }
+
+  .rating{
+    padding:24px 16px;
+  }
+
+  button{
+    padding:12px 24px;
+    font-size:15px;
+  }
+}
+
+@media (max-width:480px){
+  :root{
+    --star-size:44px;
+    --star-gap:8px;
+  }
+
+  .card{
+    padding:24px 20px;
+  }
+
+  h1{
+    font-size:22px;
+  }
+
   .field input[type="text"]{
     width:100%;
+  }
+
+  .controls{
+    flex-direction:column;
+    align-items:stretch;
+  }
+
+  button{
+    width:100%;
+  }
+
+  .result{
+    text-align:center;
   }
 }
