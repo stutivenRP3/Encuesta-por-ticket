@@ -12,9 +12,9 @@
       <p>Validando acceso...</p>
     </div>
     <div id="survey-container" style="display: none;">
-      <h1 id="enc-title">Encuesta rápida</h1>
+      <h1 id="enc-title">Encuesta de Satisfacción</h1>
       <p class="lead">
-        Por favor califique la gestión del soporte brindado (seleccione de 1 a 5 estrellas).
+        Valoramos su opinión. Por favor, califique la calidad del servicio de soporte que recibió seleccionando de 1 a 5 estrellas, donde 1 es muy insatisfecho y 5 es muy satisfecho.
       </p>
 
     <form id="survey" aria-describedby="desc" method="POST" action="http://localhost:5678/webhook-test/encuesta-por-ticket">
@@ -45,9 +45,9 @@
       </div>
 
       <div class="field">
-        <label for="comentario">Comentario (máximo 50 palabras):</label>
-        <textarea id="comentario" name="comentario" placeholder="Escriba aquí sus comentarios..." maxlength="500" rows="3"></textarea>
-        <small id="wordCount" style="color: #666; font-size: 12px;">0 / 50 palabras</small>
+        <label for="comentario">Comentarios adicionales (opcional):</label>
+        <textarea id="comentario" name="comentario" placeholder="Comparta su experiencia o sugerencias para mejorar nuestro servicio..." maxlength="500" rows="4"></textarea>
+        <small id="wordCount">0 / 50 palabras</small>
       </div>
       <!-- FIN NUEVOS CAMPOS -->
 
